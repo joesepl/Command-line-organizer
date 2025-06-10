@@ -85,8 +85,9 @@ def delete_task(tasks):
     del tasks[taskChosen]
 
 def save_tasks(tasks):
-    with open('tasks1.json', 'w') as file:
+    with open('tasks.json', 'w') as file:
         json.dump(tasks, file)
+        print("Tasks Saved.")
 
 
 #def load_tasks():

@@ -37,6 +37,9 @@ def menu_navigation(userInput, tasks):
         view_tasks(tasks)
     elif userInput == 4:
         mark_task_complete(tasks)
+    elif userInput == 5:
+        save_tasks(tasks)
+    else:
         return
 
 def add_task(tasks):
@@ -81,7 +84,11 @@ def delete_task(tasks):
         cntr +=1
     del tasks[taskChosen]
 
-#def save_tasks():
+def save_tasks(tasks):
+    with open('tasks1.json', 'w') as file:
+        json.dump(tasks, file)
+
+
 #def load_tasks():
 
 

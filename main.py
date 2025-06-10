@@ -1,11 +1,12 @@
 import json
+LAST_OPTION_NUM = 7
 
 def main():
     print("Welcome to Jojo's CLI task manager")
     tasks = {}
     currentOption = menu()
-    while currentOption != 6:
-        menu_navigation(currentOption, tasks)
+    while currentOption != LAST_OPTION_NUM:
+        tasks = menu_navigation(currentOption, tasks)
         currentOption = menu()
 
     
@@ -24,7 +25,7 @@ def menu():
         print("Please enter a valid number")
         return
     
-    if not(1<= userInput <=7):
+    if not(1<= userInput <=LAST_OPTION_NUM):
         print("Please enter a valid number")
     return userInput
 
@@ -39,8 +40,11 @@ def menu_navigation(userInput, tasks):
         mark_task_complete(tasks)
     elif userInput == 5:
         save_tasks(tasks)
+    elif userInput == 6:
+        tasks = load_tasks()
     else:
         return
+    return tasks
 
 def add_task(tasks):
     taskName = input("Enter the task (q to return): ")
@@ -52,8 +56,13 @@ def add_task(tasks):
 
 def view_tasks(tasks):
     #Iterate through tasks and print them. If a task is complete represent it with an x. 
+    if not tasks:
+        print("No Tasks")
+        return
+    
     print("\nFull Task List")
     ctr = 1
+    
     for task in tasks:
         print(ctr, ".) ", task, end='')
         if tasks[task] == "incomplete":
@@ -90,9 +99,15 @@ def save_tasks(tasks):
         print("Tasks Saved.")
 
 
-#def load_tasks():
-
-
+def load_tasks():
+    try:
+        with open('tasks.json', 'r') as file:
+            tasks = json.load(file)
+            print("Loaded tasks.")
+            print(tasks)
+            return tasks
+    except:
+        print("Nothing is saved")
 
 
 

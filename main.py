@@ -1,5 +1,5 @@
 import json
-LAST_OPTION_NUM = 7
+LAST_OPTION_NUM = 5
 
 def main():
     print("****************Welcome to Jojo's CLI task manager****************")
@@ -17,7 +17,7 @@ def menu():
     print("2.) Delete Task")
     print("3.) View Tasks")
     print("4.) Mark Task Complete")
-    print("7.) quit")
+    print("5.) quit")
     try: userInput =int(input("\nEnter Option: "))
     except: 
         print("Please enter a valid number")
@@ -44,7 +44,7 @@ def add_task(tasks):
     taskName = input("Enter the task (q to return): ")
     if taskName == "q":
         return
-    tasks [taskName] = "incomplete"
+    tasks[taskName] = "incomplete"
     print("The task ", taskName, " has been added.")
     add_task(tasks)
 
@@ -78,6 +78,8 @@ def mark_task_complete(tasks):
 def delete_task(tasks):
     view_tasks(tasks)
     numOfTask = int(input("Enter the number of the task to delete: "))
+    if not(0 <= numOfTask <= len(tasks)):
+        print("please pick a valid number")
     taskChosen = ""
     cntr = 1
     for task in tasks:
@@ -99,13 +101,17 @@ def load_tasks():
         with open('tasks.json', 'r') as file:
             tasks = json.load(file)
             if not tasks:
+                tasks = {}
                 print("No tasks saved")
-                return
-            else:
-                return tasks
+            return tasks
+    except FileNotFoundError:
+        # This will run on your first try after deleting the file.
+        # It's not an error, just the program starting fresh.
+        return {}
+     
     except:
         print("Error loading tasks")
-
+        return {}
 
 
 

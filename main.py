@@ -18,10 +18,13 @@ def menu():
     print("4.) Save Tasks")
     print("5.) Load Tasks")
     print("6.) quit")
-    userInput = int(input("\nEnter Option: "))
+    try: userInput =int(input("\nEnter Option: "))
+    except: 
+        print("Please enter a valid number")
+        return
+    
     if not(1<= userInput <=6):
         print("Please enter a valid number")
-        menu()
     return userInput
 
 def menu_navigation(userInput, tasks):

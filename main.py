@@ -2,14 +2,15 @@ import json
 
 def main():
     print("Welcome to Jojo's CLI task manager")
+    tasks = {}
     currentOption = menu()
     while currentOption != 6:
-        menu_navigation(currentOption)
+        menu_navigation(currentOption, tasks)
         currentOption = menu()
 
     
 def menu():
-    print("_______________Main Menu___________")
+    print("\n_______________Main Menu___________")
     print("Enter any number to select an option")
     print("1.) Add Task")
     print("2.) View Tasks")
@@ -18,21 +19,22 @@ def menu():
     print("5.) Load Tasks")
     print("6.) quit")
     userInput = int(input("\nEnter Option: "))
-    if 1<= userInput <=6:
-        print("You entered: ", userInput)
-    else:
+    if not(1<= userInput <=6):
         print("Please enter a valid number")
         menu()
     return userInput
 
-def menu_navigation(userInput):
+def menu_navigation(userInput, tasks):
     if userInput == 1:
-        add_task()
+        add_task(tasks)
     else:
         return
 
-def add_task():
-    print("adding task")
+def add_task(tasks):
+    taskName = input("Enter the task you would like to add: ")
+    tasks [taskName] = "incomplete"
+    print("The task ", taskName, " has been added.")
+
 #def view_tasks():
 #def mark_task_complete():
 #def save_tasks():

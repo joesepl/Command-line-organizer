@@ -2,13 +2,13 @@ import json
 LAST_OPTION_NUM = 7
 
 def main():
-    print("Welcome to Jojo's CLI task manager")
-    tasks = {}
+    print("****************Welcome to Jojo's CLI task manager****************")
+    tasks = load_tasks()
     currentOption = menu()
     while currentOption != LAST_OPTION_NUM:
         tasks = menu_navigation(currentOption, tasks)
         currentOption = menu()
-
+    save_tasks(tasks)
     
 def menu():
     print("\n_______________Main Menu___________")
@@ -17,8 +17,6 @@ def menu():
     print("2.) Delete Task")
     print("3.) View Tasks")
     print("4.) Mark Task Complete")
-    print("5.) Save Tasks")
-    print("6.) Load Tasks")
     print("7.) quit")
     try: userInput =int(input("\nEnter Option: "))
     except: 
@@ -38,10 +36,6 @@ def menu_navigation(userInput, tasks):
         view_tasks(tasks)
     elif userInput == 4:
         mark_task_complete(tasks)
-    elif userInput == 5:
-        save_tasks(tasks)
-    elif userInput == 6:
-        tasks = load_tasks()
     else:
         return
     return tasks
@@ -100,14 +94,18 @@ def save_tasks(tasks):
 
 
 def load_tasks():
+    print ("Loading tasks.....")
     try:
         with open('tasks.json', 'r') as file:
             tasks = json.load(file)
-            print("Loaded tasks.")
-            print(tasks)
-            return tasks
+            if not tasks:
+                print("No tasks saved")
+                return
+            else:
+                return tasks
     except:
-        print("Nothing is saved")
+        print("Error loading tasks")
+
 
 
 

@@ -54,9 +54,40 @@ if __name__ == "__main__":
 
 """ 
 _______GIT NOTES_______
-git add .                                           //Stage the files you want to commit
-git commit -m "Implemented the add task feature"    //commit the staged files with a descriptive message
-git push                                            //To upload commit
+git add .                                           #Stage the files you want to commit
+git commit -m "Implemented the add task feature"    #commit the staged files with a descriptive message
+git push                                            #To upload commit
+
+# --- Checking on Your Work ---
+git status                # Shows what's changed, what's staged, and what's untracked.
+git diff                  # Shows the exact line-by-line changes in your modified (but unstaged) files.
+git diff --staged         # Shows the line-by-line changes for files you have already staged (added).
+
+# --- Viewing Your Project's History ---
+git log                   # Displays a detailed, chronological list of all commits.
+git log --oneline         # Displays a simplified, one-line view of the commit history.
+git log --graph --oneline --all # Displays a visual graph of all branches and their commit histories.
+
+# --- Undoing Mistakes ---
+git restore <file>        # Discards all unstaged changes in a file, reverting it to the last commit. (Use with caution!)
+git restore --staged <file> # Removes a file from the staging area ("un-adds" it) but keeps the changes.
+git commit --amend        # Allows you to modify your most recent commit (e.g., to fix the message or add a forgotten file).
+
+# --- Working with Branches ---
+git branch <branch-name>  # Creates a new branch without switching to it.
+git switch <branch-name>  # Switches your current workspace to the specified branch.
+git branch                # Lists all the branches in your local repository and shows which one you are on.
+git merge <branch-name>   # Combines the history from the specified branch into your currently active branch.
+git branch -d <branch-name> # Deletes a local branch (typically after it has been merged).
+
+# --- Syncing with a Remote Repository (like GitHub) ---
+git clone <url>           # Downloads a repository from a URL to your local machine.
+git add <file>            # Stages a file, preparing it for the next commit. (Use '.' to add all files).
+git commit -m "Message"   # Saves your staged changes as a snapshot in the project's history.
+git push                  # Uploads your committed changes to the remote repository (e.g., GitHub).
+git pull                  # Fetches changes from the remote repository and merges them into your current branch.
+
+
 
 _______JSON NOTES_______
 import json

@@ -13,17 +13,18 @@ def menu():
     print("\n_______________Main Menu___________")
     print("Enter any number to select an option")
     print("1.) Add Task")
-    print("2.) View Tasks")
-    print("3.) Mark Task Complete")
-    print("4.) Save Tasks")
-    print("5.) Load Tasks")
-    print("6.) quit")
+    print("2.) Delete Task")
+    print("3.) View Tasks")
+    print("4.) Mark Task Complete")
+    print("5.) Save Tasks")
+    print("6.) Load Tasks")
+    print("7.) quit")
     try: userInput =int(input("\nEnter Option: "))
     except: 
         print("Please enter a valid number")
         return
     
-    if not(1<= userInput <=6):
+    if not(1<= userInput <=7):
         print("Please enter a valid number")
     return userInput
 
@@ -31,10 +32,11 @@ def menu_navigation(userInput, tasks):
     if userInput == 1:
         add_task(tasks)
     elif userInput == 2:
-        view_tasks(tasks)
+        delete_task(tasks)
     elif userInput == 3:
+        view_tasks(tasks)
+    elif userInput == 4:
         mark_task_complete(tasks)
-    else:
         return
 
 def add_task(tasks):
@@ -67,6 +69,17 @@ def mark_task_complete(tasks):
             tasks[task] = "complete"
         cntr +=1
 
+def delete_task(tasks):
+    view_tasks(tasks)
+    numOfTask = int(input("Enter the number of the task to delete: "))
+    taskChosen = ""
+    cntr = 1
+    for task in tasks:
+        if numOfTask == cntr:
+            print ("Deleting ", task, "...")
+            taskChosen = task
+        cntr +=1
+    del tasks[taskChosen]
 
 #def save_tasks():
 #def load_tasks():

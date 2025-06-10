@@ -18,14 +18,15 @@ def menu():
     print("3.) View Tasks")
     print("4.) Mark Task Complete")
     print("5.) quit")
-    try: userInput =int(input("\nEnter Option: "))
-    except: 
-        print("Please enter a valid number")
-        return
-    
-    if not(1<= userInput <=LAST_OPTION_NUM):
-        print("Please enter a valid number")
-    return userInput
+    while True:
+        try: 
+            userInput =int(input("\nEnter Option: "))
+            return userInput
+        except: 
+            print("Please enter a valid number")
+        if not(1<= userInput <=LAST_OPTION_NUM):
+            print("Please enter a valid number")
+
 
 def menu_navigation(userInput, tasks):
     if userInput == 1:
@@ -37,16 +38,16 @@ def menu_navigation(userInput, tasks):
     elif userInput == 4:
         mark_task_complete(tasks)
     else:
-        return
+        return tasks
     return tasks
 
 def add_task(tasks):
-    taskName = input("Enter the task (q to return): ")
-    if taskName == "q":
-        return
-    tasks[taskName] = "incomplete"
-    print("The task ", taskName, " has been added.")
-    add_task(tasks)
+    while True:
+        taskName = input("Enter the task (q to return): ")
+        if taskName == "q":
+            break
+        tasks[taskName] = "incomplete"
+        print("The task ", taskName, " has been added.")
 
 def view_tasks(tasks):
     #Iterate through tasks and print them. If a task is complete represent it with an x. 

@@ -1,1 +1,1 @@
-{"dog": "incomplete", "cat": "complete", "mouse": "incomplete"}
+[{"description": "cow", "status": "incomplete"}, {"description": "dog", "status": "incomplete"}, {"description": "cat", "status": "complete"}]

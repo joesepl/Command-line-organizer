@@ -21,11 +21,13 @@ def menu():
     while True:
         try: 
             userInput =int(input("\nEnter Option: "))
-            return userInput
+            if not(1<= userInput <=LAST_OPTION_NUM):
+                print("Please enter a valid number")
+            else:
+                return userInput
         except: 
             print("Please enter a valid number")
-        if not(1<= userInput <=LAST_OPTION_NUM):
-            print("Please enter a valid number")
+        
 
 
 def menu_navigation(userInput, tasks):
@@ -46,7 +48,8 @@ def add_task(tasks):
         taskName = input("Enter the task (q to return): ")
         if taskName == "q":
             break
-        tasks[taskName] = "incomplete"
+        newTask = {'description' : taskName, 'status' : 'incomplete'}
+        tasks.append(newTask)
         print("The task ", taskName, " has been added.")
 
 def view_tasks(tasks):
@@ -58,9 +61,9 @@ def view_tasks(tasks):
     print("\nFull Task List")
     ctr = 1
     
-    for task in tasks:
-        print(ctr, ".) ", task, end='')
-        if tasks[task] == "incomplete":
+    for i, task_dict in enumerate(tasks):
+        print(f"{i + 1}.) {task_dict['description']}", end='')
+        if task_dict['status'] == 'incomplete':
             print(" [ ] ")
         else:
             print(" [X] ")
@@ -69,26 +72,16 @@ def view_tasks(tasks):
 def mark_task_complete(tasks):
     view_tasks(tasks)
     numOfTask = int(input("Enter the number of the task to mark completed: "))
-    cntr = 1
-    for task in tasks:
-        if numOfTask == cntr:
-            print ("Marking ", task, "as complete.")
-            tasks[task] = "complete"
-        cntr +=1
+    tasks[numOfTask-1]['status'] = 'complete'
+    print("Marked ", tasks[numOfTask-1], " as complete")
 
 def delete_task(tasks):
     view_tasks(tasks)
     numOfTask = int(input("Enter the number of the task to delete: "))
     if not(0 <= numOfTask <= len(tasks)):
         print("please pick a valid number")
-    taskChosen = ""
-    cntr = 1
-    for task in tasks:
-        if numOfTask == cntr:
-            print ("Deleting ", task, "...")
-            taskChosen = task
-        cntr +=1
-    del tasks[taskChosen]
+    del tasks[numOfTask-1]
+    print("Deleting ", tasks[numOfTask-1])
 
 def save_tasks(tasks):
     with open('tasks.json', 'w') as file:
@@ -102,17 +95,17 @@ def load_tasks():
         with open('tasks.json', 'r') as file:
             tasks = json.load(file)
             if not tasks:
-                tasks = {}
+                tasks = []
                 print("No tasks saved")
             return tasks
     except FileNotFoundError:
         # This will run on your first try after deleting the file.
         # It's not an error, just the program starting fresh.
-        return {}
+        return []
      
     except:
         print("Error loading tasks")
-        return {}
+        return []
 
 
 

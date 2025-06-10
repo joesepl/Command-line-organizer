@@ -32,13 +32,18 @@ def menu_navigation(userInput, tasks):
         add_task(tasks)
     elif userInput == 2:
         view_tasks(tasks)
+    elif userInput == 3:
+        mark_task_complete(tasks)
     else:
         return
 
 def add_task(tasks):
-    taskName = input("Enter the task you would like to add: ")
+    taskName = input("Enter the task (q to return): ")
+    if taskName == "q":
+        return
     tasks [taskName] = "incomplete"
     print("The task ", taskName, " has been added.")
+    add_task(tasks)
 
 def view_tasks(tasks):
     #Iterate through tasks and print them. If a task is complete represent it with an x. 
@@ -47,13 +52,22 @@ def view_tasks(tasks):
     for task in tasks:
         print(ctr, ".) ", task, end='')
         if tasks[task] == "incomplete":
-            print("[ ] ")
+            print(" [ ] ")
         else:
-            print("[X] ")
+            print(" [X] ")
         ctr += 1
-        
 
-#def mark_task_complete():
+def mark_task_complete(tasks):
+    view_tasks(tasks)
+    numOfTask = int(input("Enter the number of the task to mark completed: "))
+    cntr = 1
+    for task in tasks:
+        if numOfTask == cntr:
+            print ("Marking ", task, "as complete.")
+            tasks[task] = "complete"
+        cntr +=1
+
+
 #def save_tasks():
 #def load_tasks():
 
